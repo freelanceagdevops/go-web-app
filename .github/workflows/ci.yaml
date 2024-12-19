@@ -36,7 +36,7 @@ jobs:
   name: code-quality
   on: [push, pull_request]
 
-jobs:
+  jobs:
   code-quality:
     runs-on: ubuntu-latest
 
