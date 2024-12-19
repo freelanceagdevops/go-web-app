@@ -33,11 +33,7 @@ jobs:
       run: go test ./...
   
  
-  name: code-quality
-  on: [push, pull_request]
-
-  jobs:
-    code-quality:
+  code-quality:
     runs-on: ubuntu-latest
 
     steps:
