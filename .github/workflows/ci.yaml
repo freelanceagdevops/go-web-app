@@ -21,10 +21,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up Go 1.23
+    - name: Set up Go 1.22
       uses: actions/setup-go@v2
       with:
-        go-version: 1.23
+        go-version: 1.22
 
     - name: Build
       run: go build -o go-web-app
@@ -32,7 +32,6 @@ jobs:
     - name: Test
       run: go test ./...
   
- 
   code-quality:
     runs-on: ubuntu-latest
 
@@ -40,23 +39,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: 1.23 ### Ensure this matches your project's Go version
-
-    - name: Install dependencies
-      run: go mod tidy
-
     - name: Run golangci-lint
       uses: golangci/golangci-lint-action@v6
       with:
         version: v1.56.2
-        args: --timeout 5m
-
   
-
-
   push:
     runs-on: ubuntu-latest
 
@@ -83,7 +70,6 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/go-web-app:${{github.run_id}}
 
-
   update-newtag-in-helm-chart:
     runs-on: ubuntu-latest
 
@@ -101,8 +87,8 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git config --global user.email "freelanceagdevops@gmail.com"
-        git config --global user.name "freelanceagdevops"
+        git config --global user.email "freelanceagdevops"
+        git config --global user.name "freelanceagdevops@gmail.com"
         git add helm/go-web-app-chart/values.yaml
         git commit -m "Update tag in Helm chart"
         git push
